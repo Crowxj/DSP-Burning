@@ -1,0 +1,30 @@
+/* styles.css */
+
+/* Add styles here to customize the appearance of your app */
+.span_one {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    color: white;
+    height: 30px;
+}
+
+.span_four {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    color: white;
+}
+
+.button {
+    background-color: #4d85d1;
+    color: white;
+    border: 1px solid white;
+
+}
+
+.input {
+    background-color: #4d85d1;
+    border: 1px solid white;
+    color: white;
+}
