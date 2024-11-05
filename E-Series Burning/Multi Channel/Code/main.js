@@ -16,8 +16,7 @@ function createMainWindow() {
   })
 
   mainWindow.setMenu(null);//移除主窗口菜单栏
-  mainWindow.loadFile('device_set.html')
-
+  mainWindow.loadFile('./html/device_set.html')
 }
 
 app.whenReady().then(() => {

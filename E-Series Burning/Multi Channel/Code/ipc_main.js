@@ -7,13 +7,13 @@ const { dialog } = require('electron');
 
 
 var mainWindow = null;
-var OPERATE;
+
 function setWindow(theWindow) {
     mainWindow = theWindow;
 }
 
 ipcMain.on('Buttoned', async (event, id) => {
-
+    let OPERATE;
     switch (id) {
         case 1://窗口最小化
             OPERATE = "窗口最小化";
@@ -34,8 +34,18 @@ ipcMain.on('Buttoned', async (event, id) => {
 });
 
 ipcMain.on('toMain2', async (event, id, data) => {
-    console.log(`ipc =toMain2 ${id}, ${data}`);
+    console.log(data);
+    let OPERATE;
     switch (id) {
+        case 1:
+            if(data=="device_upgrade.html"){
+                OPERATE = "跳转到设备升级页面";
+            }else if(data=="device_set.html"){
+                OPERATE = "跳转到设备管理页面";
+            }
+            
+            mainWindow.loadFile("./html/" + data);
+            break;
         // case 1:
         //     SetupClient(id,data);//传入一个路径
         //     break;
@@ -47,6 +57,7 @@ ipcMain.on('toMain2', async (event, id, data) => {
 
 
     }
+    console.log(`ipc =toMain2 ${id}, ${OPERATE}`);
 });
 
 ipcMain.on('toMain3', async (event, id, d1, d2) => {

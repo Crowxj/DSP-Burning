@@ -34,12 +34,14 @@
 
   /* 导航条 */
   .topnav {
+ 
     overflow: hidden; /* 设置溢出文本的处理方式为隐藏，确保内容不会超出显示区域 */
     background-color:#f1f1f1;;/* 设置导航栏的背景颜色为深灰色，以营造专业和一致的视觉效果 */
   }
 
   /* 导航链接 */
-  .topnav span {
+  .topnav button {
+    border: none;
     float: left;/* 使链接左浮动，使其在水平方向上排列 */
     display: block;/*将链接显示为块级元素，使其占据整个行宽*/
     color: black;/*设置链接文字颜色为黑色*/
@@ -48,7 +50,7 @@
     text-decoration: none;/*移除链接的下划线*/
   }
   /* 链接 - 修改颜色 */
-  .topnav span:hover {
+  .topnav button:hover {
     background-color: #d9d3d3;
     color: black;
   }
@@ -58,19 +60,19 @@
   <div class="header">
     <!-- 显示方式为内联 内边距3px 背景色透明无边框 -->
     <button id="device_set_minimize" style="display: inline; padding: 3px;background-color: transparent;border: none;">
-      <img src="./image/minimize.png" style="width: 25px;height: 25px;">
+      <img src="../image/minimize.png" style="width: 25px;height: 25px;">
     </button><!--最小化-->
     &nbsp;&nbsp;
     <button id="device_set_close" style="display: inline; padding: 3px;background-color: transparent;border: none;">
-      <img src="./image/close.png" style="width: 25px;height: 25px;">
+      <img src="../image/close.png" style="width: 25px;height: 25px;">
     </button><!--关闭-->
   </div>
 
   <div class="topnav">
-    <span>设备管理</span>
-    <span>设备升级</span>
+      <button id="device_set">设备管理</span>
+      <button id="device_upgrade">设备升级</span></button>
   </div>
-  <script src="./renderer.js"></script>
+  <script src="../js/renderer/device_set.js"></script>
 </body>
 
 </html>
