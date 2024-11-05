@@ -1,7 +1,7 @@
 const { ipcMain, webContents } = require('electron');
 const net = require('net');//创建Tcp服务器和客户端
 const fs = require('fs');//对文件系统的操作
-const {showStatus } = require('./ipc_main');
+const {showStatus } = require('../ipc_main');
 
 module.exports = {
     closeTcpClient,SetupClient
@@ -16,7 +16,7 @@ var client = null;
 function SetupClient(id, jsonURL) {
     if (client != null) {
         //上次连接未断开
-        showStatus(`Last connection was not disconnected`);
+        showStatus(`>>> Last connection was not disconnected.`);
         client.close();
         delete client;
         client = null;
@@ -25,7 +25,8 @@ function SetupClient(id, jsonURL) {
 
     fs.readFile(jsonURL, 'utf8', (err, data) => {
         if (err) {
-            showStatus(`Error reading config file ${err}`);
+            //读取TCP配置文件时出错
+            showStatus(`>>> Error reading TCP connection configuration file ${err}.`);
             return;
         }
         try {
@@ -37,7 +38,7 @@ function SetupClient(id, jsonURL) {
 
             // 连接服务器
             client.connect(config.port, config.host, () => {
-                showStatus(`Connected to ${config.host}:${config.port}`);
+                showStatus(`>>> Connected to ${config.host}:${config.port}.`);
             });
 
             // 监听数据接收
@@ -46,21 +47,21 @@ function SetupClient(id, jsonURL) {
             });
             // 监听连接关闭
             client.on('end', () => {
-                showStatus(`Disconnect ${config.host}:${config.port}`);
+                //断开连接
+                showStatus(`>>> Disconnect ${config.host}:${config.port}.`);
             });
 
             // 监听错误事件
             client.on('error', (error) => {
-                showStatus(`error ${error}`);
+                showStatus(`>>> error ${error}.`);
             });
 
         } catch (error) {
-            showStatus(`Error parsing JSON: ${error}`);
-
+            //解析JSON时出错
+            showStatus(`>>> Error parsing JSON ${error}.`);
         }
 
     });
-
 
 }
 
@@ -76,10 +77,10 @@ function closeTcpClient() {
         delete client;
         client = null;
         //关闭连接
-        showStatus(`Connection closed`);
+        showStatus(`>>> Connection closed.`);
     }else{
         //未连接Tcp  请先连接TCP
-        showStatus(` Currently not connected to TCP, please connect first`);
+        showStatus(`>>> Currently not connected to TCP, please connect first.`);
        
     }
 }

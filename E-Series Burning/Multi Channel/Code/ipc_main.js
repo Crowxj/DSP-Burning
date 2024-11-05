@@ -1,31 +1,51 @@
 const { ipcMain } = require('electron');
 module.exports = {
-    setWindow,showStatus,showValue,showValue2
+    setWindow, showStatus, showValue, showValue2
 }
-const {SetupClient,closeTcpClient}=require("./client.js")
+const { SetupClient, closeTcpClient } = require("./client/client.js")
 const { dialog } = require('electron');
 
 
 var mainWindow = null;
+var OPERATE;
 function setWindow(theWindow) {
     mainWindow = theWindow;
 }
 
 ipcMain.on('Buttoned', async (event, id) => {
-    console.log(`ipc =Buttoned ${id}`);
+
     switch (id) {
-        case 1:
-            closeTcpClient(id);//关闭客户端
+        case 1://窗口最小化
+            OPERATE = "窗口最小化";
+            mainWindow.minimize();
             break;
+        case 2://窗口关闭
+            OPERATE = "窗口关闭";
+            mainWindow.close();
+            break;
+
+
+        // case 1:
+        //     closeTcpClient(id);//关闭客户端
+        //     break;
+
     }
+    console.log(`ipc =Buttoned ${id},${OPERATE}`);
 });
 
 ipcMain.on('toMain2', async (event, id, data) => {
     console.log(`ipc =toMain2 ${id}, ${data}`);
     switch (id) {
-        case 1:
-            SetupClient(id,data);//传入一个路径
-            break;
+        // case 1:
+        //     SetupClient(id,data);//传入一个路径
+        //     break;
+        // case 2:
+        //     mainWindow.loadFile("./html/" + data);
+        //     break;
+        // let data="System.html";
+        // window.TheIPC.toMain2(997,data)
+
+
     }
 });
 
